@@ -20,7 +20,7 @@ window.addEventListener("click", function (e) {
   }
 })
 
-// Toggle du hmaburger et du menu
+// Toggle du hamburger et du menu
 function mobileMenu() {
   hamburger.classList.toggle("active");
   navbarMenu.classList.toggle("active");
@@ -79,7 +79,7 @@ const tournamentsInput = document.querySelector('#tournaments');
 
 const form = document.querySelector('.reservation');
 
-const nameRegex = /^[A-Za-z\s]{3,20}$/;
+const nameRegex = /^[A-Za-z\s]{2,20}$/;
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const birthdateRegex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
 const tournamentsRegex = /^(0?[0-9]|[0-9][0-9])$/;
@@ -236,6 +236,7 @@ const validateInputTournaments = (e) => {
 const checkboxElement = document.querySelectorAll("input[name='location']");
 let count = 0;
 
+// Rest au début de la modale
 for (let inputs of checkboxElement) {
   inputs.checked = false
   inputs.disabled = true;
@@ -258,7 +259,7 @@ function verifyNumberCheck(e) {
   console.log(count)
   return count;
 }
-
+// Si count > 0 alors
 function checkBoxIsValid(value) {
   let errorTown = document.querySelector('#error-town');
   if (value > 0) {
