@@ -20,7 +20,7 @@ window.addEventListener("click", function (e) {
   }
 })
 
-// Toggle du hmaburger et du menu
+// Toggle du hamburger et du menu
 function mobileMenu() {
   hamburger.classList.toggle("active");
   navbarMenu.classList.toggle("active");
@@ -236,6 +236,7 @@ const validateInputTournaments = (e) => {
 const checkboxElement = document.querySelectorAll("input[name='location']");
 let count = 0;
 
+// Rest au début de la modale
 for (let inputs of checkboxElement) {
   inputs.checked = false
   inputs.disabled = true;
@@ -258,7 +259,7 @@ function verifyNumberCheck(e) {
   console.log(count)
   return count;
 }
-
+// Si count > 0 alors
 function checkBoxIsValid(value) {
   let errorTown = document.querySelector('#error-town');
   if (value > 0) {
