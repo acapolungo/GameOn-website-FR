@@ -79,7 +79,7 @@ const tournamentsInput = document.querySelector('#tournaments');
 
 const form = document.querySelector('.reservation');
 
-const nameRegex = /^[A-Za-z\s]{3,20}$/;
+const nameRegex = /^[A-Za-z\s]{2,20}$/;
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const birthdateRegex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
 const tournamentsRegex = /^(0?[0-9]|[0-9][0-9])$/;
