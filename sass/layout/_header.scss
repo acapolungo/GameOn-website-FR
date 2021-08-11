@@ -3,9 +3,13 @@
     min-width: rem(320);
     margin: 0 auto;
     position: relative;
+    z-index: 1;
     @include tablet {
         max-width: rem(768);
         padding: rem(25) rem(0);
+    }
+    @include desktop {
+        max-width: rem(1240);
     }
     .navbar {
         position: fixed;
@@ -21,12 +25,21 @@
             padding: 0;
         }
         &__logo {
-            background: url(/images/Logo.png) no-repeat center;
+            background: url(../images/Logo.png) no-repeat center;
             background-size: contain;
             width: rem(103);
             height: rem(20);
+            @include tablet {
+                width: rem(180);
+                height: rem(30);
+            }
+            @include desktop {
+                width: rem(265);
+                height: rem(45);
+            }
         }
         .hamburger {
+            padding: rem(5);
             cursor: pointer;
             &.active .hamburger__bar:nth-child(1) {
                 transform: translateY(8px) rotate(45deg);
@@ -60,21 +73,22 @@
             text-align: center;
             transition: 0.3s;
             border-bottom: 1px solid $color-primary;
-            @include tablet {  
-                border-bottom: none;
-            }
             &.active {
                 left: 0;
             } 
             @include tablet {
+                border-bottom: none;
                 position: static;  
-                width: 80%;
+                width: 100%;
                 display: flex;
                 flex-wrap: nowrap;
                 justify-content: flex-end;
                 align-items: center;  
                 background-color: transparent;
                 box-shadow: none;
+            }
+            @include desktop {
+                width: 70%;
             }
         }
         &__item {
@@ -97,8 +111,7 @@
                     color: transparent;
                     background-color: transparent;
                 }
-            }
-            
+            }  
         }
         &__link {
             font-size: rem(20);
@@ -107,14 +120,21 @@
             white-space:nowrap;
             padding: rem(15);
             border-radius: rem(8);
+            &::after {
+                border-bottom: 1px solid #fff;
+            }
             @include tablet {  
                 color: inherit;
-                font-size: rem(15);
-                margin-left: rem(5);
+                font-size: rem(14);
                 &:hover {
                     color: #fff;
                     background-color: $color-primary;
                 }
+            }
+            @include desktop {
+                font-size: rem(20);
+                margin-left: rem(0);
+                padding: rem(15);
             }
         }
     }

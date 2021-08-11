@@ -26,16 +26,14 @@
         @include tablet {
             max-width: rem(500);
             margin: 5% auto;
-            margin: rem(84) auto;
             height: auto;
         }
     }
-    &__modal__ {
+    &__modal__body {
         padding: 15px 8%;
         margin: 15px auto;
     }
-    &__town,
-    label {
+    &__town, label {
         font-size: rem(14);
         font-weight: 400;
         display: inline-block;
@@ -80,8 +78,8 @@
             transition: 0.3s;
             &::after {
                 content: "";
-                width: 13px;
-                height: 13px;
+                width: rem(12);
+                height: rem(12);
                 background-color: $color-valid;
                 border-radius: 50%;
                 text-indent: 29px;
@@ -98,6 +96,10 @@
             }
             &--valid {
                 border: 2px solid $color-valid;
+            }
+            &--disabled {
+                border: 2px solid $color-disabled;
+                opacity: 0.5;
             }
         }
     }
@@ -171,8 +173,7 @@
         }
     }
     &__registration {
-        min-height: rem(700);
-        position: relative;
+        min-height: rem(700.63);
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -181,6 +182,7 @@
     &__greetings {
         width: rem(310);
         height: rem(155);
+        margin: 0 auto;
         text-align: center;
         font-weight: 400;
         font-size: rem(36);
@@ -188,6 +190,7 @@
     }
     .error {
         font-size: rem(14);
+        color: $color-error;
         &--invalid {
             color: $color-error;
         }
