@@ -6,6 +6,8 @@ const btnMainOpen = document.querySelector('.main__btn');
 const btnModCross = document.querySelector('.modal__close');
 const btnCloseRegistration = document.querySelector('.modal__closeregistration');
 const blockModal = document.querySelector('.modal');
+const modalBody = document.querySelector('.modal__body');
+const newElt = document.createElement("div");
 let modal = false;
 
 const allItemNav = document.querySelectorAll('.navbar__item');
@@ -28,7 +30,6 @@ function mobileMenu() {
 
 // Empecher le click si l'écran autre que Mobile
 const isMobile = !window.matchMedia("(min-width: 768px)").matches;
-console.log(isMobile)
 if (isMobile) {
   // sur le hamburger
   hamburger.addEventListener("click", mobileMenu);
@@ -40,34 +41,34 @@ if (isMobile) {
   });
 }
 
-// StopPropagation des menus à la modale True
-if (modal === true) {
+//----------------------------- Modale -----------------------------//
+
+// Ouverture
+function openModal() {
   navbarMenu.addEventListener("click", function (e) {
     e.stopPropagation;
   });
   hamburger.addEventListener("click", function (e) {
     e.stopPropagation;
   });
-}
-
-//----------------------------- Modale -----------------------------//
-
-// Ouverture
-function openModal() {
   modal = true;
   blockModal.style.display = "block";
   blockModal.removeAttribute('aria-hidden');
   blockModal.setAttribute('aria-modal', 'true');
+  disableInputs()
 }
-btnMainOpen.addEventListener("click", openModal);
 // Fermeture
 function closeModal() {
   modal = false;
   blockModal.style.display = "none";
   blockModal.setAttribute('aria-hidden', 'true');
   blockModal.removeAttribute('aria-modal');
+
+  //on supprime la div attachée
+  modalBody.removeChild(newElt);
+  // on masque la modale et on remet le form
+  form.style.display = "block";
 }
-btnModCross.addEventListener("click", closeModal);
 
 //----------------------------- Gestion de formulaire -----------------------------//
 
@@ -76,6 +77,7 @@ const lastNameInput = document.querySelector('#last');
 const emailInput = document.querySelector('#email');
 const birthdateInput = document.querySelector('#birthdate');
 const tournamentsInput = document.querySelector('#tournaments');
+const errorTown = document.querySelector('#error-town');
 
 const form = document.querySelector('.reservation');
 
@@ -181,7 +183,7 @@ const validateInputBirthdate = (e) => {
 let today = new Date();
 let dd = today.getDate();
 let mm = today.getMonth() + 1 // janvier est 0
-let yyyy = today.getUTCFullYear();
+let yyyy = today.getUTCFullYear()-13; // moins la majorité
 if (dd < 10) {
   dd = `0${dd}`;
 }
@@ -206,12 +208,7 @@ const validateTournaments = (tournaments, input) => {
   } else if (parseInt(tournaments) === 0) {
     ifInputValid(input);
     input.nextElementSibling.innerHTML = "";
-    for (let inputs of checkboxElement) {
-      inputs.checked = false
-      inputs.disabled = true;
-      let inputCheckIcon = inputs.nextElementSibling.childNodes[1];
-      inputCheckIcon.classList.add('modal__checkicon--disabled');
-    }
+    disableInputs()
   } else if (tournaments == "") {
     ifInputInvalid(input);
     input.nextElementSibling.innerHTML = "Veuillez remplir ce champ";
@@ -237,11 +234,13 @@ const checkboxElement = document.querySelectorAll("input[name='location']");
 let count = 0;
 
 // Rest au début de la modale
-for (let inputs of checkboxElement) {
-  inputs.checked = false
-  inputs.disabled = true;
-  let inputCheckIcon = inputs.nextElementSibling.childNodes[1];
-  inputCheckIcon.classList.add('modal__checkicon--disabled');
+function disableInputs() {
+  for (let inputs of checkboxElement) {
+    inputs.checked = false
+    inputs.disabled = true;
+    let inputCheckIcon = inputs.nextElementSibling.childNodes[1];
+    inputCheckIcon.classList.add('modal__checkicon--disabled');
+  }
 }
 
 for (let i = 0; i < checkboxElement.length; i++) {
@@ -257,14 +256,17 @@ function verifyNumberCheck(e) {
     count--;
   }
   console.log(count)
+  errorTown.innerHTML = "";
   return count;
 }
 // Si count > 0 alors
 function checkBoxIsValid(value) {
-  let errorTown = document.querySelector('#error-town');
-  if (value > 0) {
+  if (tournamentsInput.value >= value) {
     errorTown.innerHTML = "";
     return true;
+  } else if (tournamentsInput.value < value) {
+    errorTown.innerHTML = "Non valide, trop de villes pour vos participations";
+    return false;
   } else {
     errorTown.innerHTML = "Merci de valider au moins une ville";
     return false;
@@ -280,7 +282,7 @@ function checkRequiredIsValid() {
   //return document.querySelector("#checkbox1").checked ? true : false;
 }
 
-// Compilation des retour true/false de chaque value
+// Compilation des retour true/false de chaque Regex
 const firstNameFormValid = () => {
   return nameIsValid(firstNameInput.value);
 }
@@ -304,37 +306,33 @@ const formIsValid = () => {
 }
 
 // Values "" au submit
-function ifInputNotFill(input) {
-  if (input.value == "") {
-    ifInputInvalid(input);
-    input.nextElementSibling.innerHTML = "Veuillez remplir ce champ";
+function ifInputNotFill() {
+  for (let inputs of document.querySelectorAll('.modal__input')) {
+    if(inputs.value =="") {
+      inputs.nextElementSibling.innerHTML = "Veuillez remplir ce champ";
+    }
   }
 }
 // Reset au submit
-function ifsubmitReset(input) {
-  input.value = "";
+function ifsubmitReset() {
+  for (let inputs of document.querySelectorAll('.modal__input')) {
+      inputs.value = "";
+      inputs.classList.remove('modal__input--valid');
+  }
+  disableInputs()
 }
 
 const submit = (e) => {
   if (formIsValid()) {
     // submit the form
     e.preventDefault();
-    modifyModal();
-    ifsubmitReset(firstNameInput);
-    ifsubmitReset(lastNameInput);
-    ifsubmitReset(emailInput);
-    ifsubmitReset(birthdateInput);
-    ifsubmitReset(tournamentsInput);
-    //
+    createModalRegistration();
+    ifsubmitReset();
     alert('formulaire validé');
   } else {
     // do not submit form
     e.preventDefault();
-    ifInputNotFill(firstNameInput);
-    ifInputNotFill(lastNameInput);
-    ifInputNotFill(emailInput);
-    ifInputNotFill(birthdateInput);
-    ifInputNotFill(tournamentsInput);
+    ifInputNotFill();
     // console.log(nameIsValid(firstNameInput.value))
     // console.log(nameIsValid(lastNameInput.value))
     // console.log(emailIsValid(emailInput.value))
@@ -344,7 +342,8 @@ const submit = (e) => {
     // console.log(checkRequiredIsValid())
   }
 }
-
+btnMainOpen.addEventListener("click", openModal);
+btnModCross.addEventListener("click", closeModal);
 firstNameInput.addEventListener('focusout', validateInputFirstName);
 lastNameInput.addEventListener('focusout', validateInputLastName);
 emailInput.addEventListener('focusout', validateInputEmail);
@@ -355,8 +354,7 @@ form.addEventListener('submit', submit);
 //----------------------------- Fin de gestion du formulaire début de la modale de remerciement -----------------------------//
 
 function createModalRegistration() {
-  const modalBody = document.querySelector('.modal__body');
-  const newElt = document.createElement("div");
+  form.style.display = "none";
   modalBody.appendChild(newElt);
   modalBody.classList.add('modal__registration')
   const newP = document.createElement("p");
@@ -368,15 +366,6 @@ function createModalRegistration() {
   document.querySelector(".modal__greetings").innerHTML = "Merci ! <br>Votre réservation a été reçue."
   document.querySelector(".modal__closeregistration").innerHTML = "Fermer";
   newBtn.addEventListener("click", () => {
-    //on supprime la div attachée
-    modalBody.removeChild(newElt);
-    // on masque la modale et on remet le form
-    form.style.display = "block";
     closeModal()
   });
-}
-
-function modifyModal() {
-  form.style.display = "none";
-  createModalRegistration();
 }
