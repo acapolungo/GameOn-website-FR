@@ -1,15 +1,17 @@
 .footer {
     width: 100%;
-    height: 10vh;
+    height: 6vh;
     min-width: rem(320);
     margin: 0 auto;
-    padding: 0 rem(30);
+    padding: 0 rem(20);
     display: flex;
     justify-content: center;
     align-items: center;
     color: $color-primary;
     padding: rem(35.8) rem(0) rem(20) rem(0);
     @include tablet {
+        height: 10vh;
+        padding: 0;
         max-width: rem(768);
     }
     @include desktop {

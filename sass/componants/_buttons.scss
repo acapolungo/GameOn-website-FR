@@ -60,6 +60,6 @@
 .modal__closeregistration {
     position: absolute;
     left: 50%;
-    margin-left: -20%;
-    bottom: rem(60);
+    bottom: 5vh;
+    transform: translateX(-50%);
 }
