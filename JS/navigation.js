@@ -30,7 +30,7 @@ function closeModal() {
 
   closeRegistration();
   form.style.display = "block";
-  count = "";
+  count = 0;
 }
 
 //----------------------------- Nouvelle modale de remerciement -----------------------------//
