@@ -7,8 +7,11 @@ const btnModCross = document.querySelector('.modal__close');
 const btnCloseRegistration = document.querySelector('.modal__closeregistration');
 const blockModal = document.querySelector('.modal');
 const modalBody = document.querySelector('.modal__body');
-const newElt = document.createElement("div");
 let modal = false;
+
+const newElt = document.createElement("div");
+const newP = document.createElement("p");
+const newBtn = document.createElement("button");
 
 const allItemNav = document.querySelectorAll('.navbar__item');
 
@@ -64,10 +67,9 @@ function closeModal() {
   blockModal.setAttribute('aria-hidden', 'true');
   blockModal.removeAttribute('aria-modal');
 
-  //on supprime la div attachée
-  modalBody.removeChild(newElt);
-  // on masque la modale et on remet le form
+  closeRegistration();
   form.style.display = "block";
+  count = "";
 }
 
 //----------------------------- Gestion de formulaire -----------------------------//
@@ -179,19 +181,21 @@ const validateInputBirthdate = (e) => {
   validateBirthdate(birthdate, birthdateInput);
 }
 
-// Gestion de la date pour le maximum d'années
-let today = new Date();
-let dd = today.getDate();
-let mm = today.getMonth() + 1 // janvier est 0
-let yyyy = today.getUTCFullYear()-13; // moins la majorité
+// Gestion de la date pour le maximum d'annéesvar oneYearFromNow = new Date();
+let majorityMinThirteen = new Date();
+majorityMinThirteen.setFullYear(majorityMinThirteen.getFullYear() - 13); // on cap une majorité à 13 ans
+let dd = majorityMinThirteen.getDate();
+let mm = majorityMinThirteen.getMonth() + 1 // janvier est 0
+let yyyy = majorityMinThirteen.getUTCFullYear();
 if (dd < 10) {
   dd = `0${dd}`;
 }
 if (mm < 10) {
   mm = `0${mm}`;
 }
-today = `${yyyy}-${mm}-${dd}`;
-document.querySelector("#birthdate").setAttribute("max", today);
+majorityMinThirteen = `${yyyy}-${mm}-${dd}`;
+console.log(majorityMinThirteen)
+document.querySelector("#birthdate").setAttribute("max", majorityMinThirteen);
 //console.log(today);
 
 // Quantité de tournois
@@ -265,7 +269,7 @@ function checkBoxIsValid(value) {
     errorTown.innerHTML = "";
     return true;
   } else if (tournamentsInput.value < value) {
-    errorTown.innerHTML = "Non valide, trop de villes pour vos participations";
+    errorTown.innerHTML = "Vous ne pouvez avoir plus de villes que de participations";
     return false;
   } else {
     errorTown.innerHTML = "Merci de valider au moins une ville";
@@ -277,7 +281,7 @@ function checkRequiredIsValid() {
   if (document.querySelector("#checkbox1").checked) {
     return document.querySelector("#checkbox1").checked;
   } else {
-    document.querySelector('#error-quantity').innerHTML = "Vous devez vérifier que vous acceptez les termes et conditions.";
+    document.querySelector('#error-quantity').innerHTML = "Merci de cocher pour accepter les termes et conditions.";
   }
   //return document.querySelector("#checkbox1").checked ? true : false;
 }
@@ -314,7 +318,7 @@ function ifInputNotFill() {
   }
 }
 // Reset au submit
-function ifsubmitReset() {
+function submitResetInput() {
   for (let inputs of document.querySelectorAll('.modal__input')) {
       inputs.value = "";
       inputs.classList.remove('modal__input--valid');
@@ -326,9 +330,8 @@ const submit = (e) => {
   if (formIsValid()) {
     // submit the form
     e.preventDefault();
-    createModalRegistration();
-    ifsubmitReset();
-    alert('formulaire validé');
+    createNewModal();
+    submitResetInput();
   } else {
     // do not submit form
     e.preventDefault();
@@ -351,21 +354,37 @@ birthdateInput.addEventListener('focusout', validateInputBirthdate);
 tournamentsInput.addEventListener('focusout', validateInputTournaments);
 form.addEventListener('submit', submit);
 
-//----------------------------- Fin de gestion du formulaire début de la modale de remerciement -----------------------------//
+//----------------------------- Fin de gestion du formulaire && modale de remerciement -----------------------------//
 
-function createModalRegistration() {
+function createNewModal() {
   form.style.display = "none";
-  modalBody.appendChild(newElt);
-  modalBody.classList.add('modal__registration')
-  const newP = document.createElement("p");
-  const newBtn = document.createElement("button");
-  newElt.appendChild(newP);
-  newElt.appendChild(newBtn);
-  newP.classList.add("modal__greetings");
-  newBtn.classList.add("modal__closeregistration");
-  document.querySelector(".modal__greetings").innerHTML = "Merci ! <br>Votre réservation a été reçue."
-  document.querySelector(".modal__closeregistration").innerHTML = "Fermer";
-  newBtn.addEventListener("click", () => {
-    closeModal()
-  });
+  openRegistration();
+}
+
+// Crée un nouvel élément
+function openRegistration() {
+  if (!document.querySelector("#registration")) {
+    //It #registration does not exist
+    modalBody.appendChild(newElt);
+    modalBody.classList.add('modal__registration')
+    modalBody.setAttribute("id", "registration");
+    newElt.appendChild(newP);
+    newElt.appendChild(newBtn);
+    newP.classList.add("modal__greetings");
+    newBtn.classList.add("modal__closeregistration");
+    document.querySelector(".modal__greetings").innerHTML = "Merci ! <br>Votre réservation a été reçue."
+    document.querySelector(".modal__closeregistration").innerHTML = "Fermer";
+    newBtn.addEventListener("click", () => {
+      closeModal();
+    });
+    }
+}
+// Supprime ce nouvel élément
+function closeRegistration() {
+  if (document.querySelector("#registration")) {
+    //If #registration exist
+    modalBody.removeAttribute("id", "registration")
+    newElt.removeChild(newBtn);
+    newElt.removeChild(newP);
+  }
 }
