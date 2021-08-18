@@ -169,6 +169,7 @@ const validateTournaments = (e) => {
     } else if (parseInt(tournaments) === 0) {
         ifInputValid(input);
         input.nextElementSibling.innerHTML = "";
+        count = 0;
         disableInputs();
     } else if (tournaments == "") {
         ifInputInvalid(input);
@@ -235,6 +236,7 @@ function verifyNumberCheck(e) {
 }
 // Test des checkbox
 function checkBoxIsValid(value) {
+    console.log(value)
     if (tournamentsInput.value == 0 && value == 0) {
         errorTown.innerHTML = "";
         return true;
@@ -253,6 +255,7 @@ function checkBoxIsValid(value) {
 }
 function checkRequiredIsValid() {
     if (document.querySelector("#checkbox1").checked) {
+        document.querySelector('#error-quantity').innerHTML = "";
         return document.querySelector("#checkbox1").checked;
     } else {
         document.querySelector('#error-quantity').innerHTML = "Merci de cocher pour accepter les termes et conditions.";

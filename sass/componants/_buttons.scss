@@ -50,8 +50,8 @@
     background-color: $color-primary;
     cursor: pointer;
     transition: all 0.2s ease-out;
-    margin-top: rem(23.64);
     @include tablet {
+        margin-top: rem(23.64);
         font-size: rem(16);
         padding: rem(12) rem(75);
     }

@@ -20,8 +20,9 @@
         justify-content: space-between;
         align-items: center;
         flex-wrap: nowrap;
-        padding: rem(30) rem(30) rem(25) rem(30);
+        padding: rem(25);
         @include tablet {
+            padding: rem(30) rem(30) rem(25) rem(30);
             position: static;
             padding: 0;
         }

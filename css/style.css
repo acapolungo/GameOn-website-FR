@@ -111,11 +111,11 @@ body {
   background-color: #FE142F;
   cursor: pointer;
   transition: all 0.2s ease-out;
-  margin-top: 1.4775rem;
 }
 @media (min-width: 768px) {
   .modal__submit,
 .modal__closeregistration {
+    margin-top: 1.4775rem;
     font-size: 1rem;
     padding: 0.75rem 4.6875rem;
   }
@@ -155,10 +155,11 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: nowrap;
-  padding: 1.875rem 1.875rem 1.5625rem 1.875rem;
+  padding: 1.5625rem;
 }
 @media (min-width: 768px) {
   .header .navbar {
+    padding: 1.875rem 1.875rem 1.5625rem 1.875rem;
     position: static;
     padding: 0;
   }
@@ -292,7 +293,6 @@ body {
 .footer {
   width: 100%;
   height: 6vh;
-  min-width: 20rem;
   margin: 0 auto;
   padding: 0 1.25rem;
   display: flex;
@@ -446,16 +446,18 @@ body {
 
 .modal {
   display: none;
-  position: fixed;
+  position: absolute;
   z-index: 1;
   left: 0;
   top: 0;
-  height: 100%;
+  height: min-content;
   width: 100%;
   overflow: hidden;
 }
 @media (min-width: 768px) {
   .modal {
+    position: fixed;
+    height: 100%;
     background: rgba(26, 39, 156, 0.4);
   }
 }
@@ -470,8 +472,7 @@ body {
 }
 .modal__content {
   width: 100%;
-  height: 50rem;
-  margin: 5.875rem auto;
+  margin: 5.5625rem auto 0rem;
   animation-name: modalopen;
   animation-duration: 0.8s;
   background: #232323;
@@ -479,12 +480,12 @@ body {
   overflow: hidden;
   position: relative;
   color: #fff;
-  padding: 2.375rem 2.375rem 0rem;
+  padding: 2.375rem 2.375rem 2.375rem;
 }
 @media (min-width: 768px) {
   .modal__content {
     border-radius: 0.625rem;
-    height: 100vh;
+    height: 100%;
     max-width: 31.25rem;
     margin: 5% auto;
     height: auto;
@@ -501,8 +502,10 @@ body {
   display: inline-block;
   margin-bottom: 11px;
 }
-.modal__formData {
-  margin-bottom: 0.625rem;
+@media (min-width: 768px) {
+  .modal__formData {
+    margin-bottom: 0.625rem;
+  }
 }
 .modal__input {
   width: 100%;
@@ -642,11 +645,16 @@ body {
   transform: rotate(-45deg);
 }
 .modal__registration {
-  min-height: 43.789375rem;
   display: flex;
+  min-height: 100vh;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+@media (min-width: 768px) {
+  .modal__registration {
+    min-height: 43.789375rem;
+  }
 }
 .modal__greetings {
   width: 19.375rem;
