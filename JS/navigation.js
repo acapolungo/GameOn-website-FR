@@ -5,7 +5,6 @@ const btnCloseModal = document.querySelector('.modal__close');
 const btnCloseRegistration = document.querySelector('.modal__closeregistration');
 const blockModal = document.querySelector('.modal');
 const modalBody = document.querySelector('.modal__body');
-let modal = false;
 
 // Ouverture
 function openModal() {
@@ -15,22 +14,24 @@ function openModal() {
   hamburger.addEventListener("click", function (e) {
     e.stopPropagation;
   });
-  modal = true;
   blockModal.style.display = "block";
   blockModal.removeAttribute('aria-hidden');
   blockModal.setAttribute('aria-modal', 'true');
-  disableInputs();
+  if(tournamentsInput.value !="" || tournamentsInput.value != 0) {
+    enableInputs();
+  } else {
+    disableInputs();
+  }
+  //disableInputs();
 }
 // Fermeture
 function closeModal() {
-  modal = false;
   blockModal.style.display = "none";
   blockModal.setAttribute('aria-hidden', 'true');
   blockModal.removeAttribute('aria-modal');
 
   closeRegistration();
   form.style.display = "block";
-  count = 0;
 }
 
 //----------------------------- Nouvelle modale de remerciement -----------------------------//

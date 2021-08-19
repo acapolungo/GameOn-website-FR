@@ -29,9 +29,6 @@ const birthdateIsValid = (birthdate) => {
 const tournamentsIsValid = (tournaments) => {
     return tournamentsRegex.test(tournaments)
 }
-const nameIsEmpty = (name) => {
-    return name.trim() == ""
-}
 
 function ifInputValid(input) {
     input.classList.remove('modal__input--error');
@@ -50,7 +47,7 @@ const validateName = (name, input) => {
     if (nameIsValid(name)) {
         ifInputValid(input);
         input.nextElementSibling.innerHTML = "";
-    } else if (nameIsEmpty(name)) {
+    } else if (name.trim() == "") {
         ifInputInvalid(input);
         input.nextElementSibling.innerHTML = "Veuillez remplir ce champ"
     } else {
@@ -133,7 +130,7 @@ const validateTournamentss = (tournaments, input) => {
     if (tournamentsIsValid(tournaments) && tournaments > 0) {
         ifInputValid(input);
         input.nextElementSibling.innerHTML = "";
-        checkedInput(0, false);
+        disableInputs();
         // for (let inputs of checkboxElement) {
         //   inputs.disabled = false;
         //   let inputCheckIcon = inputs.nextElementSibling.childNodes[1];
@@ -159,7 +156,7 @@ const validateTournaments = (e) => {
     if (tournamentsIsValid(tournaments) && tournaments > 0) {
         ifInputValid(input);
         input.nextElementSibling.innerHTML = "";
-        checkedInput(0, false);
+        enableInputs();
         // for (let inputs of checkboxElement) {
         //   inputs.disabled = false;
         //   let inputCheckIcon = inputs.nextElementSibling.childNodes[1];
@@ -169,7 +166,6 @@ const validateTournaments = (e) => {
     } else if (parseInt(tournaments) === 0) {
         ifInputValid(input);
         input.nextElementSibling.innerHTML = "";
-        count = 0;
         disableInputs();
     } else if (tournaments == "") {
         ifInputInvalid(input);
@@ -189,17 +185,16 @@ const validateInputTournaments = (e) => {
 
 // Checkbox
 const checkboxElement = document.querySelectorAll("input[name='location']");
-let count = 0;
 
-// Rest au début de la modale
+
+// Reset au début de la modale
+//     inputs.checked = false
+//     inputs.disabled = true
 function disableInputs() {
-    //   for (let inputs of checkboxElement) {
-    //     inputs.checked = false
-    //     inputs.disabled = true;
-    //     let inputCheckIcon = inputs.nextElementSibling.childNodes[1];
-    //     inputCheckIcon.classList.add('modal__checkicon--disabled');
-    //   }
     checkedInput(false, true);
+}
+function enableInputs() {
+    checkedInput(0, false);
 }
 
 // Initialise les valeurs chk n'importe quel valeur / true / false
@@ -219,32 +214,26 @@ function checkedInput(chk, dis) {
 }
 
 for (let i = 0; i < checkboxElement.length; i++) {
-    checkboxElement[i].addEventListener("click", verifyNumberCheck);
+    checkboxElement[i].addEventListener("click", verifyCheck);
 }
 
-function verifyNumberCheck(e) {
-    if (e.target.checked) {
-        //const nameCheckBox = e.target.id;
-        count++;
-        //console.log(nameCheckBox);
-    } else {
-        count--;
-    }
-    //console.log(count)
-    errorTown.innerHTML = "";
-    return count;
+function verifyCheck() {
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    let countCheckbox = checkboxes.length-1;
+    console.log(countCheckbox);
+    return countCheckbox;
 }
+
 // Test des checkbox
-function checkBoxIsValid(value) {
-    console.log(value)
+function checkBoxIsValid() {
     if (tournamentsInput.value == 0 && value == 0) {
         errorTown.innerHTML = "";
         return true;
     }
-    if (tournamentsInput.value >= value && value > 0) {
+    if (tournamentsInput.value >= verifyCheck() && verifyCheck() > 0) {
         errorTown.innerHTML = "";
         return true;
-    } else if (tournamentsInput.value < value) {
+    } else if (tournamentsInput.value < verifyCheck()) {
         errorTown.innerHTML = "Vous ne pouvez avoir plus de villes que de participations";
         return false;
     } else {
@@ -280,7 +269,7 @@ const tournamentsFormValid = () => {
     return tournamentsIsValid(tournamentsInput.value);
 }
 const checkboxFormValid = () => {
-    return checkBoxIsValid(count);
+    return checkBoxIsValid();
 }
 const formIsValid = () => {
     return firstNameFormValid() && lastNameFormValid() && emailFormValid() && birthdateFormValid() && tournamentsFormValid() && checkboxFormValid() && checkRequiredIsValid()
