@@ -9,6 +9,7 @@
         padding: rem(25) rem(0);
     }
     @include desktop {
+        padding: rem(52) rem(0) rem(84);
         max-width: rem(1240);
     }
     .navbar {
@@ -19,8 +20,9 @@
         justify-content: space-between;
         align-items: center;
         flex-wrap: nowrap;
-        padding: rem(30) rem(30) rem(25) rem(30);
+        padding: rem(25);
         @include tablet {
+            padding: rem(30) rem(30) rem(25) rem(30);
             position: static;
             padding: 0;
         }
@@ -79,16 +81,13 @@
             @include tablet {
                 border-bottom: none;
                 position: static;  
-                width: 100%;
+                width: 70%;
                 display: flex;
                 flex-wrap: nowrap;
                 justify-content: flex-end;
                 align-items: center;  
                 background-color: transparent;
                 box-shadow: none;
-            }
-            @include desktop {
-                width: 70%;
             }
         }
         &__item {
@@ -118,7 +117,7 @@
             font-weight: 500;
             color: $color-primary;
             white-space:nowrap;
-            padding: rem(15);
+            padding: rem(15) rem(10);
             border-radius: rem(8);
             &::after {
                 border-bottom: 1px solid #fff;
@@ -128,6 +127,7 @@
                 font-size: rem(14);
                 &:hover {
                     color: #fff;
+                    text-decoration: underline;
                     background-color: $color-primary;
                 }
             }

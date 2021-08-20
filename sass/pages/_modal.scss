@@ -1,32 +1,36 @@
 .modal {
     display: none;
-    position: fixed;
+    position: absolute;
     z-index: 1;
     left: 0;
     top: 0;
-    height: 100%;
+    height: min-content;
     width: 100%;
     overflow: hidden;
     @include tablet {
+    position: fixed;
+    height: 100%;
     background: rgba(26, 39, 156, 0.4);
     }
     @include modal;
     &__content {
         width: 100%;
-        height: 100vh;
-        margin: rem(84) auto rem(89);
+        margin: rem(89) auto rem(0);
         animation-name: modalopen;
         animation-duration: $modal-duration;
         background: $color-secondary;
-        border-radius: 10px;
+        border-radius: rem(10) rem(10) 0 0;
         overflow: hidden;
         position: relative;
         color: #fff;
-        padding: rem(38) rem(30) rem(30);
+        padding: rem(38) rem(38) rem(38);
         @include tablet {
+            border-radius: rem(10);
+            height: 100%;
             max-width: rem(500);
             margin: 5% auto;
             height: auto;
+            padding: rem(50) rem(30) rem(17);
         }
     }
     &__modal__body {
@@ -40,7 +44,9 @@
         margin-bottom: 11px;
     }
     &__formData {
-        margin-bottom: rem(10);
+        @include tablet {
+            margin-bottom: rem(10);
+        }
     }
     &__input {
         width: 100%;
@@ -149,21 +155,27 @@
     }
     &__close {
         position: absolute;
-        right: 15px;
-        top: 15px;
-        width: 32px;
-        height: 32px;
+        right: 45px;
+        top: 24px;
+        width: rem(13);
+        height: rem(13);
         opacity: 1;
         cursor: pointer;
         transform: scale(0.7);
+        @include tablet {
+            right: 38px;
+        }
         &::before,
         &::after {
             position: absolute;
             left: 15px;
             content: " ";
-            height: 33px;
+            height: 25px;
             width: 3px;
             background-color: #fff;
+            @include tablet {
+                height: 32px;
+            }
         }
         &::before {
             transform: rotate(45deg);
@@ -173,11 +185,14 @@
         }
     }
     &__registration {
-        min-height: rem(700.63);
         display: flex;
+        min-height: 80vh;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
+        @include tablet {
+            min-height: rem(700.63);
+        }
     }
     &__greetings {
         width: rem(310);

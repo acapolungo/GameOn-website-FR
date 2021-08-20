@@ -13,8 +13,11 @@ html, body {
     font-size: $base-font-size;
     display: flex;
 	flex-direction: column;
-	min-height: 100vh;
+    height: rem(736);
     background: $color-bg;
+    @include tablet {
+        min-height: 100vh;
+    }
 }
 
 li {

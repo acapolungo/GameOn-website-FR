@@ -85,38 +85,38 @@
               <input class="modal__input" type="date" id="birthdate" name="birthdate" min="1899-01-01"/>
               <span class="error" id="error-birthdate"></span>
             </div>
-            <div class="modal__formData">
+            <div class= "modal__formData">
               <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-              <input type="number" class="modal__input" id="tournaments" name="tournaments" min="0" max="99">
+              <input class="modal__input" type="number" id="tournaments" name="tournaments" min="0" max="99">
               <span class="error" id="error-tournaments"></span>
             </div>
-            <p class="modal__town">Quelles villes ? </p></br>
-            <span class="error" id="error-town"></span>
+            <p class="modal__town">Quelles villes ? </p>
             <div class="modal__formData">
               <input class="modal__checkinput" type="checkbox" id="location1" name="location" value="New York" />
               <label class="modal__checklabel" for="location1">
-                <span class="modal__checkicon modal__checkicon--disabled"></span>
+                <span class="modal__checkicon"></span>
                 New York</label>
               <input class="modal__checkinput" type="checkbox" id="location2" name="location" value="San Francisco" />
               <label class="modal__checklabel" for="location2">
-                <span class="modal__checkicon modal__checkicon--disabled"></span>
+                <span class="modal__checkicon"></span>
                 San Francisco</label>
               <input class="modal__checkinput" type="checkbox" id="location3" name="location" value="Seattle" />
               <label class="modal__checklabel" for="location3">
-                <span class="modal__checkicon modal__checkicon--disabled"></span>
+                <span class="modal__checkicon"></span>
                 Seattle</label>
               <input class="modal__checkinput" type="checkbox" id="location4" name="location" value="Chicago" />
               <label class="modal__checklabel" for="location4">
-                <span class="modal__checkicon modal__checkicon--disabled"></span>
+                <span class="modal__checkicon"></span>
                 Chicago</label>
               <input class="modal__checkinput" type="checkbox" id="location5" name="location" value="Boston" />
               <label class="modal__checklabel" for="location5">
-                <span class="modal__checkicon modal__checkicon--disabled"></span>
+                <span class="modal__checkicon"></span>
                 Boston</label>
               <input class="modal__checkinput" type="checkbox" id="location6" name="location" value="Portland" />
               <label class="modal__checklabel" for="location6">
-                <span class="modal__checkicon modal__checkicon--disabled"></span>
-                Portland</label>
+                <span class="modal__checkicon"></span>
+                Portland</label><br/>
+                <span class="error" id="error-town"></span>
             </div>
 
             <div class="modal__formData">
@@ -142,7 +142,8 @@
   <footer class="footer">
     <p class="footer__copy">Copyright 2014 - 2020, GameOn Inc.</p>
   </footer>
-
+  <script src="JS/menunav.js"></script>
+  <script src="JS/formulaire.js"></script>
   <script src="JS/navigation.js"></script>
 </body>
 
