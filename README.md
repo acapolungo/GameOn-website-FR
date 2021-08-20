@@ -1,4 +1,5 @@
-![GameOn](https://ibb.co/s5Y3VjZ)
+![GameOn](https://i.postimg.cc/P5gJGk6T/bg-img.jpg)
+
 # Projet GameOn
 
 __Demande sur le projet :__
