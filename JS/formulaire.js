@@ -186,7 +186,6 @@ const validateInputTournaments = (e) => {
 // Checkbox
 const checkboxElement = document.querySelectorAll("input[name='location']");
 
-
 // Reset au début de la modale
 //     inputs.checked = false
 //     inputs.disabled = true
@@ -200,7 +199,9 @@ function enableInputs() {
 // Initialise les valeurs chk n'importe quel valeur / true / false
 function checkedInput(chk, dis) {
     for (let checkbox of checkboxElement) {
-        if (chk == true || chk == false) {
+        // typeof(chk) === "boolean" && (chk === true || chk === false
+        // Tester le type avant
+        if (chk === true || chk === false) {
             checkbox.checked = chk;
         }
         checkbox.disabled = dis;

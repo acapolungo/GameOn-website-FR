@@ -6,14 +6,16 @@ const btnCloseRegistration = document.querySelector('.modal__closeregistration')
 const blockModal = document.querySelector('.modal');
 const modalBody = document.querySelector('.modal__body');
 
+
+
 // Ouverture
 function openModal() {
-  navbarMenu.addEventListener("click", function (e) {
-    e.stopPropagation;
-  });
-  hamburger.addEventListener("click", function (e) {
-    e.stopPropagation;
-  });
+  // navbarMenu.addEventListener("click", function (e) {
+  //   e.stopPropagation;
+  // });
+  // hamburger.addEventListener("click", function (e) {
+  //   e.stopPropagation;
+  // });
   blockModal.style.display = "block";
   blockModal.removeAttribute('aria-hidden');
   blockModal.setAttribute('aria-modal', 'true');
